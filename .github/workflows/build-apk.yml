@@ -119,6 +119,12 @@ jobs:
           set -e
           node scripts/build-snapshot-013.mjs "${{ matrix.abi }}"
 
+      - name: 跑 Kotlin 单测（check-kotlin-test-count 门禁要求结果先在场）
+        shell: bash
+        run: |
+          set -e
+          ./gradlew :app:testDebugUnitTest --no-daemon --stacktrace
+
       - name: 构建 APK ${abi}（注入插件 + 门禁 + gradle + 产物）
         shell: bash
         run: |
